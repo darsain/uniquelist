@@ -1,0 +1,27 @@
+{
+  "name": "uniquelist",
+  "repo": "darsain/uniquelist",
+  "description": "Extends darsain/list to create a unique list.",
+  "version": "0.0.1",
+  "keywords": [
+    "array",
+    "list",
+    "unique"
+  ],
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "dependencies": {
+    "darsain/list": "*",
+    "darsain/definer": "*",
+    "component/inherit": "*"
+  },
+  "development": {
+    "dependencies": {
+      "visionmedia/mocha": "*",
+      "component/assert": "*"
+    }
+  },
+  "license": "MIT"
+}
