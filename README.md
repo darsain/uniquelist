@@ -79,7 +79,7 @@ By default uses strict equals `===` to compare items. You can specify your own c
 
 ### #indexOf(item)
 
-Uses `#compare()` whether item is already in a list. Returns an item index, or `-1` when not found.
+Uses `#compare()` to find an `item` in a list. Returns an item index, or `-1` when not found.
 
 ### #push(item1, ..., itemN)
 
