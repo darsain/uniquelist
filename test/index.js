@@ -34,7 +34,7 @@ function getId(item) {
 	return item.id;
 }
 
-describe('UniqueList([array])', function () {
+describe('UniqueList([array], [compareFunction])', function () {
 	var data = [
 		{ id: 'a' },
 		{ id: 'a' },
