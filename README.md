@@ -2,6 +2,8 @@
 
 Extends [List](https://github.com/darsain/list) to create a unique list.
 
+Read about limitations here: [darsain/list#limitations](https://github.com/darsain/list#limitations).
+
 ## Install
 
 With [component(1)](https://github.com/component/component):
