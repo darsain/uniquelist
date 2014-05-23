@@ -1,6 +1,6 @@
 # UniqueList
 
-Extends [List](https://github.com/darsain/list) to create a unique list.
+Extends [darsain/list](https://github.com/darsain/list) to create a unique list.
 
 Read about limitations here: [darsain/list#limitations](https://github.com/darsain/list#limitations).
 
@@ -49,15 +49,13 @@ UniqueList constructor. `new` keyword is optional.
 
 #### [array]
 
-`Object`
-
 Array, or an array-like like object to create a UniqueList from.
 
 Can be `Array`, `List`, `NodeList`, `arguments`, ... everything that looks like `{ 0: 'foo', length: 1 }`.
 
-#### [compareFunction]
+If you want to have a UniqueList of objects and comparing should be property based, pass the custom compare function to the argument below.
 
-`Function`
+#### [compareFunction]
 
 Function for comparing 2 items. Receives 2 arguments. Has to return `true` when items match, `false` otherwise.
 
@@ -69,9 +67,9 @@ function compareFunction(a, b) {
 }
 ```
 
-#### *Inherits all methods from [List](https://github.com/darsain/list)*
+#### *Inherits all methods from [List](https://github.com/darsain/list#api)*
 
-*Below are documented methods that are either new, or vary from their native behavior.*
+*Methods documented below are either new, or vary from their previous behavior.*
 
 ### #compare(a, b)
 
