@@ -3,21 +3,12 @@ var List = require('list');
 var UniqueList = require('uniquelist');
 
 /**
- * Compares an array like objects.
- * @param {Object} a
- * @param {Object} b
- * @return {Boolean}
+ * Creates a function that returns an object property.
  */
-function compare(a, b) {
-	try {
-		if (a.length !== b.length) return false;
-		for (var i = 0; i < a.length; i++) {
-			if (a[i] !== b[i]) return false;
-		}
-	} catch (e) {
-		return false;
-	}
-	return true;
+function getProp(name) {
+	return function (obj) {
+		return obj[name];
+	};
 }
 
 /**
@@ -25,13 +16,6 @@ function compare(a, b) {
  */
 function compareFunction(a, b) {
 	return a.id === b.id;
-}
-
-/**
- * Returns object's `id` property.
- */
-function getId(item) {
-	return item.id;
 }
 
 describe('UniqueList([array], [compareFunction])', function () {
@@ -56,11 +40,11 @@ describe('UniqueList([array], [compareFunction])', function () {
 	});
 	it('should uniquefy initial data', function () {
 		var list = new UniqueList('aabcc'.split(''));
-		assert(compare(list, 'abc'.split('')));
+		assert(list.join() === 'a,b,c');
 	});
 	it('should uniquefy initial data with custom compare function', function () {
 		var list = new UniqueList(data, compareFunction);
-		assert(compare(list.map(getId), 'abc'.split('')));
+		assert(list.map(getProp('id')).join() === 'a,b,c');
 	});
 	it('should accept custom compare function as 1st argument', function () {
 		var list = new UniqueList(compareFunction);
@@ -68,14 +52,14 @@ describe('UniqueList([array], [compareFunction])', function () {
 	});
 	it('should accept custom compare function as 2nd argument', function () {
 		var list = new UniqueList(data, compareFunction);
-		assert(compare(list.map(getId), 'abc'.split('')));
+		assert(list.map(getProp('id')).join() === 'a,b,c');
 		assert(list.compare === compareFunction);
 	});
 	it('should for...in loop only thorugh items', function () {
 		var list = new List('abc'.split(''));
 		var keys = [];
 		for (var key in list) keys.push(key);
-		assert(compare(keys, ['0','1','2']));
+		assert(keys.join() === '0,1,2');
 	});
 });
 
@@ -123,31 +107,31 @@ describe('#push(item1, ..., itemN)', function () {
 	it('should insert a unique item', function () {
 		var list = new UniqueList('abc'.split(''));
 		var length = list.push('d');
-		assert(compare(list, 'abcd'.split('')));
+		assert(list.join() === 'a,b,c,d');
 		assert(length === 4);
 	});
 	it('should insert multiple unique items', function () {
 		var list = new UniqueList('abc'.split(''));
 		var length = list.push('d', 'e', 'f');
-		assert(compare(list, 'abcdef'.split('')));
+		assert(list.join() === 'a,b,c,d,e,f');
 		assert(length === 6);
 	});
 	it('should ignore a duplicate', function () {
 		var list = new UniqueList('abc'.split(''));
 		var length = list.push('b');
-		assert(compare(list, 'abc'.split('')));
+		assert(list.join() === 'a,b,c');
 		assert(length === 3);
 	});
 	it('should ignore multiple duplicates', function () {
 		var list = new UniqueList('abc'.split(''));
 		var length = list.push('b', 'c', 'c');
-		assert(compare(list, 'abc'.split('')));
+		assert(list.join() === 'a,b,c');
 		assert(length === 3);
 	});
 	it('should pick through unique and duplicate items', function () {
 		var list = new UniqueList('abc'.split(''));
 		var length = list.push('a', 'd', 'd', 'c');
-		assert(compare(list, 'abcd'.split('')));
+		assert(list.join() === 'a,b,c,d');
 		assert(length === 4);
 	});
 });
@@ -156,31 +140,31 @@ describe('#unshift(item1, ..., itemN)', function () {
 	it('should insert a unique item', function () {
 		var list = new UniqueList('abc'.split(''));
 		var length = list.unshift('d');
-		assert(compare(list, 'dabc'.split('')));
+		assert(list.join() === 'd,a,b,c');
 		assert(length === 4);
 	});
 	it('should insert multiple unique items', function () {
 		var list = new UniqueList('abc'.split(''));
 		var length = list.unshift('d', 'e', 'f');
-		assert(compare(list, 'defabc'.split('')));
+		assert(list.join() === 'd,e,f,a,b,c');
 		assert(length === 6);
 	});
 	it('should ignore a duplicate', function () {
 		var list = new UniqueList('abc'.split(''));
 		var length = list.unshift('b');
-		assert(compare(list, 'abc'.split('')));
+		assert(list.join() === 'a,b,c');
 		assert(length === 3);
 	});
 	it('should ignore multiple duplicates', function () {
 		var list = new UniqueList('abc'.split(''));
 		var length = list.unshift('b', 'c', 'c');
-		assert(compare(list, 'abc'.split('')));
+		assert(list.join() === 'a,b,c');
 		assert(length === 3);
 	});
 	it('should pick through unique and duplicate items', function () {
 		var list = new UniqueList('abc'.split(''));
 		var length = list.unshift('a', 'd', 'd', 'c');
-		assert(compare(list, 'dabc'.split('')));
+		assert(list.join() === 'd,a,b,c');
 		assert(length === 4);
 	});
 });
